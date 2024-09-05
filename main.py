@@ -157,14 +157,6 @@ class ServerStatusChecker:
 
             self.progress_bar["value"] += 1
             self.root.update_idletasks()
-            # Combine results
-
-            # print(trace_status)
-            # self.tree.item(child, values=(server, sensor, ip, status), tags=(ping_status,))
-            #
-            # # Update progress bar
-            # self.progress_bar["value"] += 1
-            # self.root.update_idletasks()
 
         messagebox.showinfo("Info", "IP status check completed.")
     def ping_ip(self, ip):
