@@ -121,33 +121,6 @@ class ServerStatusChecker:
         for server, sensor, ip in self.projects.get(selected_project, []):
             self.tree.insert("", "end", values=(server, sensor, ip, "Unknown"), tags=("Unknown",))
 
-    # def check_ip_statuses(self):
-    #     selected_project = self.project_var.get()
-    #     if not selected_project:
-    #         messagebox.showwarning("Warning", "No project selected.")
-    #         return
-    #
-    #     # Set progress bar
-    #     total_servers = len(self.tree.get_children())
-    #     self.progress_bar["value"] = 0
-    #     self.progress_bar["maximum"] = total_servers
-    #
-    #     # Check IP statuses for the selected project
-    #     for idx, child in enumerate(self.tree.get_children()):
-    #         server, sensor, ip, _ = self.tree.item(child, "values")
-    #         # Set status to "Checking..."
-    #         self.tree.item(child, values=(server, sensor, ip, "Checking..."), tags=("Checking",))
-    #         self.root.update_idletasks()  # Update UI
-    #
-    #         status = self.ping_ip(ip)
-    #         status = self.trace_route(ip)
-    #         self.tree.item(child, values=(server, sensor, ip, status), tags=(status,))
-    #
-    #         # Update progress bar
-    #         self.progress_bar["value"] += 1
-    #         self.root.update_idletasks()
-    #
-    #     messagebox.showinfo("Info", "IP status check completed.")
     def check_ip_statuses(self):
         selected_project = self.project_var.get()
         if not selected_project:
