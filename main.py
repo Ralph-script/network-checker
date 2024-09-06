@@ -143,7 +143,7 @@ class ServerStatusChecker:
             ping_status = self.ping_ip(ip)
             if ping_status == "Active":
                 status = f"Ping: {ping_status}"
-
+                trace_status = ""
                 #update progress bar
                 self.tree.item(child, values=(server, sensor, ip, status), tags=(ping_status,))
 
@@ -157,12 +157,13 @@ class ServerStatusChecker:
 
             self.progress_bar["value"] += 1
             self.root.update_idletasks()
+            self.print_to_csv(ping_status, trace_status)
 
         messagebox.showinfo("Info", "IP status check completed.")
     def ping_ip(self, ip):
         try:
             result = subprocess.run(
-                ["ping", "-c", "1", ip],
+                ["ping",ip],
                 stdout=subprocess.PIPE,
                 stderr=subprocess.PIPE,
                 text=True
@@ -171,6 +172,9 @@ class ServerStatusChecker:
             #     return "Active"
             # else:
             #     return "Inactive"
+
+            print(result.stdout)
+
             ping_status = ["Active","Inactive"]
             return random.choice(ping_status)
         except Exception as e:
@@ -208,6 +212,9 @@ class ServerStatusChecker:
             )
 
             if result.returncode == 0:
+
+                print(result.stdout)
+
                 return "Success"  # Return the output of the tracert command
 
             else:
@@ -228,6 +235,10 @@ class ServerStatusChecker:
         status = self.trace_route(ip)
         #self.tree.item(selected_item, values=(server, sensor, ip, status), tags=(status,))
         print(status)
+
+    def print_to_csv(self,ping_status,tracert_status):
+        print(ping_status)
+        print(tracert_status)
 
 def main():
    root = tk.Tk()
